@@ -6,21 +6,36 @@ using namespace std;
 
 struct State{
     string name; //Nombre del Estado
-    int ei; //Estado Inicio
-    int ef; //Estado Llegada
     bool fin; //Comprobación de Estado Final
     function *fun; //Puntero hacia la Transición
     State *next; //Puntero al siguiente Estado
-
-    State(){ //Constructor
-        fin = false; //Estado final se inicializa como falso
-    }
-
 }; typedef struct State state;
 
-void createInitialState(state **S, string name){
+void createState(state **S, string name){
+    //Variables Iniciales
     state *p = new state;
     p->name = name;
-    p->next = *S;
-    *S = p;
+    p->fin = false;
+    p->fun = nullptr;
+    p->next = nullptr;
+
+    //Creación de Estados
+    if(*S==nullptr){
+        *S = p;
+    }
+    else{
+        state *q = *S;
+        while(q->next != nullptr){
+            q = q->next;
+        }
+        q->next = p;
+    }
+}
+
+void imprimir(state *S){
+    while(S->next != nullptr){
+        cout << S->name << endl;
+        S = S->next;
+    }
+    cout << S->name << endl;
 }

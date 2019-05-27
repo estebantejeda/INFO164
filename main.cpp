@@ -10,28 +10,31 @@ void stringToArray(char *A, string word);
 int main(){
 
     //Variables
-    string name; //Nombre de Estado Inicial
-    string e1; //Nombre Inicio de Estado
-    string e2; //Nombre Destino de Estado
-    char val; //Letra de función de Transición
-    state *p = nullptr;
+    string name; //Nombre de Estado
+    char val; //Letra de Transición
+    state *p = nullptr; //Estructura
 
-    //Ingreso de estado inicial (PENDIENTE)
-    cout << "Ingrese nombre Estado Inicial" << endl;
+    //Ingreso de estado inicial
+    cout << "Ingrese nombre Estado Inicial Q0" << endl;
     cin >> name;
-    createInitialState(&p, name);
+    createState(&p, name);
 
     //Ingreso de Transiciones (PENDIENTE)
-    cout << "Ingrese nombre Inicio de Estado" << endl;
-    cin >> e1;
-    cout << "Ingrese función de transición" << endl;
-    cin >> val;
-    cout << "Ingrese nombre Destino de Estado" << endl;
-    cin >> e2;
+    bool repeat = true;
+    while (repeat){
+        cout << "Ingrese nombre Estado Qn" << endl;
+        cin >> name;
+        cout << "Ingrese nombre Estado Qm" << endl;
+        cin >> name;
+        cout << "Ingrese letra para función de Transición" << endl;
+        cin >> val;
+        cout << "Ingresar otro? [s/n]" << endl;
+        char c;
+        cin >> c;
+        if(c == 'n') repeat = false;
+    }
 
     //Ingreso Estados Finales (PENDIENTE)
-    cout << "Ingrese estados finales" << endl;
-    cin >> name;
 
     //Ingreso de la palabra
     string wordString = inputWord();

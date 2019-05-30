@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <string>
 #include "State.hpp"
 
 using namespace std;
@@ -12,7 +13,7 @@ int main(){
     //Variables
     string nameI; //Nombre de Estado de Inicio
     string nameD; //Nombre de Estado de Destino
-    char val; //Letra de Transición
+    char symbol; //Símbolo de Transición
     state *p = nullptr; //Estructura
 
     //Ingreso de estado inicial
@@ -21,30 +22,16 @@ int main(){
     createState(&p, nameI);
 
     //Ingreso de Transiciones (PENDIENTE)
-    bool repeat = true;
-    /*while (repeat){
-        cout << "Ingrese nombre Estado Qn" << endl;
+
+    for(int i = 0; i < 4; i++){
+        cout << "\nIngrese nombre del Estado de Inicio Qn" << endl;
         cin >> nameI;
-        searchState(p, name);
-        cout << "Ingrese nombre Estado Qm" << endl;
+        if(searchState(p, nameI)) createState(&p, nameI);
+        cout << "\nIngrese nombre del Estado de Destino Qm" << endl;
         cin >> nameD;
-        cout << "Ingrese letra para función de Transición" << endl;
-        cin >> val;
-        cout << "Ingresar otro? [s/n]" << endl;
-        char c;
-        cin >> c;
-        if(c == 'n') repeat = false;
-    }*/
-    for (int i = 0; i < 2; i++){
-        cout << "Ingrese nombre Estado Qn" << endl;
-        cin >> nameI;
-        createState(&p, nameI);
+        if(searchState(p, nameD)) createState(&p, nameD);
     }
-    for (int i = 0; i < 5; i++){
-        cout << "Buscar Qn" << endl;
-        cin >> nameI;
-        if(searchState(p, nameI)) cout << "Existe\n" << endl; else cout << "No existe\n" << endl;
-    }
+    cout << "" <<endl;
     print(p);
     return 0;
 

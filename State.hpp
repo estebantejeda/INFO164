@@ -7,16 +7,17 @@ using namespace std;
 struct State{
     string name; //Nombre del Estado
     bool fin; //Comprobación de Estado Final
-    function *fun; //Puntero hacia la Transición ¿Usar vector<string> fun?
+    function *fun; //Puntero hacia la Transición
     State *next; //Puntero al siguiente Estado
 }; typedef struct State state;
 
 void createState(state **S, string name){
     //Variables Iniciales
     state *p = new state;
+    function *f = new function;
     p->name = name;
     p->fin = false;
-    p->fun = nullptr;
+    p->fun = f;
     p->next = nullptr;
 
     //Creación de Estados
@@ -32,12 +33,16 @@ void createState(state **S, string name){
     }
 }
 
+void addFunction(state **S, string nameI, string nameD, char symbol){
+    
+}
+
 bool searchState(state *S, string name){
     while(S != nullptr && S->name != name){
         S = S->next;
     }
-    if(S == nullptr) return false;
-    return true;
+    if(S == nullptr) return true;
+    return false;
 }
 
 void print(state *S){

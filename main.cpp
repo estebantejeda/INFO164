@@ -19,9 +19,11 @@ int main(){
     string nameD; //Nombre de Estado de Destino
     char symbol; //Símbolo de Transición
     state *p = nullptr; //Estructura de datos que almacena los estados
+    bool bucle = true; //VARIABLE TEMPORAL
+    char letter; // VARIABLE TEMPORAL
 
-    /*
-    * Se pide al usuario el ingreso del nodo inicial, el cuál será 
+    /* INGRESO DE ESTADO INICIAL Q0
+    * Se pide al usuario el ingreso del nombre del estado inicial, el cuál será
     * el inicio de la estructura de datos.
     */
 
@@ -29,7 +31,7 @@ int main(){
     cin >> nameI;
     createState(&p, nameI);
 
-    /* INGRESO DE TRANSICIONES (PENDIENTE)
+    /* INGRESO DE TRANSICIONES
     * Se pide al usuario el ingreso de los estados Qn, Qm y el símbolo para
     * la Función de Transición.
     * Cada vez que el usuario ingresa un nombre para el estado Qn/Qm, este hace
@@ -40,7 +42,7 @@ int main(){
     * cual agrega el símbolo y estado de destino dentro del estado de Inicio.
     */
 
-    for(int i = 0; i < 3; i++){
+    while(bucle){
         cout << "\nIngrese nombre del Estado de Inicio Qn" << endl;
         cin >> nameI;
         if(searchState(p, nameI)) createState(&p, nameI);
@@ -49,16 +51,12 @@ int main(){
         if(searchState(p, nameD)) createState(&p, nameD);
         cout << "\nIngrese el símbolo para la función de Transición" << endl;
         cin >> symbol;
-        //addFunction(&p, nameI, nameD, symbol);
-    }
-
-    /*
-    * Sección de Desarrollo, será borrado una vez se tenga que entregar.
-    */
-
-    cout << "\nEstados:" <<endl;
-    print(p);
-    return 0;
+        addFunction(&p, nameI, nameD, symbol);
+        cout << "Finalizar? [s/n]" << endl;
+        cin >> letter;
+        if(letter == 's') bucle = false;
+    } printAllInformation(p); //Imprime los estados y sus funciones de transición
+    bucle = true;
 
     /* INGRESO DE ESTADOS FINALES
     * Se pide al usuario el ingreso de los estados que serán estados finales, una vez
@@ -67,11 +65,14 @@ int main(){
     * a "true".
     */
 
-    for (int i = 0; i < 2; i++){
+    while(bucle){
         cout << "\nIngrese el nombre del estado que quiera hacer final" << endl;
         cin >> nameI;
         if (searchState(p, nameI)) cout << "No existe el Estado" << endl;
         else changeFinalState(p, nameI);
+        cout << "Finalizar? [s/n]" << endl;
+        cin >> letter;
+        if(letter == 's') bucle = false;
     }
 
     /* INGRESO DE LA PALABRA

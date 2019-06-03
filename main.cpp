@@ -70,7 +70,6 @@ int main(){
     * a "true".
     */
 
-   
     while(bucle){
         cout << "\nIngrese el nombre del estado que quiera hacer final" << endl;
         cout << "> ";
@@ -94,10 +93,9 @@ int main(){
     char *Word = new char[wordString.length()-1];
     stringToArray(Word, wordString);
 
-    //Inicio de Autómata (PENDIENTE)
+    //Inicio de Autómata
 
-    if(checkWord(p, Word, wordString.length())) cout << "Palabra aceptada";
-    else "Palabra no aceptada";
+    if (checkWord(p, Word, wordString.length())) cout << "Aceptada"; else cout << "Rechazada";
 
 }
 

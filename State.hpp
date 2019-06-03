@@ -160,6 +160,30 @@ int symbolPosition(state *S, char symbol){
 
 /* checkWord(state *S, char *A, int largo)
 * 
+* Recibe: El puntero del estado (*S), el arreglo con la palabra ingresada (*A) y el
+* largo de la palabra
+*
+* Entrega: Retorna un true si la palabra es aceptada y un false sino
+*
+* Explicación: El algoritmo comienza con la creación de dos punteros que apuntan a la 
+* estrucura de datos. El puntero p será el encargado de apuntar siempre al estado
+* donde sea realizada la función de transición, mientras que el puntero q será el
+* encargado de recorrer la estructura de datos en busca del estado de destino.
+* Se inicializa un i = 0 dentro de un while para representar la posición dentro
+* del arreglo de la palabra. Mientras la posición sea menor que el largo de la
+* palabra, quiere decir que aún no se ha terminado de recorrer el autómata.
+* Una vez hecho esto, se comprueba si el símbolo "i" existe dentro de la
+* función de transición del autómata. En caso de que no exista, quiere decir
+* que no es aceptado por la palabra y en su defecto retorna un false (El símbolo
+* no existe dentro de las funciones de transición del estado dado). Caso contrario,
+* buscará el nombre del autómata de destino de la posición "i", para luego empezar
+* a buscarlo dentro de la estructura de datos.
+* Cuando el nombre del estado de destino sea encontrado, entonces el puntero p apuntará
+* hacia el puntero q, para que luego el puntero q sea reseteado apuntado a la cabeza (S).
+* Lo anterior será realizado de manera iterativa hasta que se acabe de recorrer la palabra.
+* Una vez que se recorra completamente la palabra, se comprobará que el puntero p esté apuntando
+* a un estado que sea final. En caso de que lo sea, retornará true (Se acepta la palabra), en caso
+* contrario, se retornará false (No se acepta la palabra).
 */
 
 bool checkWord(state *S, char *A, int largo){
@@ -168,14 +192,17 @@ bool checkWord(state *S, char *A, int largo){
     int i = 0;
     while(i < largo){
         if(symbolPosition(p, A[i]) != -1){
-            string destState = p->nameD[symbolPosition(p, A[i])];
-            while(q->name != destState) q = q->next;
+            int j = symbolPosition(p, A[i]);
+            string nameDest = p->nameD[j];
+            while(q->name != nameDest) q = q->next;
             p = q;
             q = S;
         }
         else return false;
         i++;
     }
+    if(p->fin) return true;
+    else return false;
 }
 
 /****************************************************************************

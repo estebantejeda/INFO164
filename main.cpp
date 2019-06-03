@@ -56,11 +56,12 @@ int main(){
         cout << "> ";
         cin >> symbol;
         if(searchSymbol(p, nameI, symbol)) addFunction(&p, nameI, nameD, symbol);
+        else cout << "Transición no válida" <<endl;
         cout << "\nFinalizar? [s/n] ";
         cin >> letter;
         if(letter == 's') bucle = false;
         cout << endl;
-    } printAllInformation(p); //Imprime los estados y sus funciones de transición
+    }
     bucle = true;
 
     /* INGRESO DE ESTADOS FINALES
@@ -71,16 +72,17 @@ int main(){
     */
 
     while(bucle){
-        cout << "\nIngrese el nombre del estado que quiera hacer final" << endl;
+        cout << "Ingrese el nombre del estado que quiera hacer final" << endl;
         cout << "> ";
         cin >> nameI;
         if (searchState(p, nameI)) cout << "No existe el Estado" << endl;
         else changeFinalState(p, nameI);
-        cout << "Finalizar? [s/n] ";
+        cout << "\nFinalizar? [s/n] ";
         cin >> letter;
         if(letter == 's') bucle = false;
         cout << endl;
-    }
+    } printAllInformation(p); //Imprime los estados y sus funciones de transición
+    bucle = true;
     
 
     /* INGRESO DE LA PALABRA
@@ -89,15 +91,29 @@ int main(){
     * dentro de una posición del arreglo por medio del método stringToArray(char *A, string word).
     */
 
-    string wordString = inputWord();
-    char *Word = new char[wordString.length()-1];
-    stringToArray(Word, wordString);
+    /* VERIFICACIÓN DE PALABRA
+    * Se verificará si la palabra ingresada es aceptada o no por el autómata.
+    */
 
-    //Inicio de Autómata
+    while (bucle){
+        //Ingreso de Palabra
+        string wordString = inputWord();
+        char *Word = new char[wordString.length()-1];
+        stringToArray(Word, wordString);
 
-    if (checkWord(p, Word, wordString.length())) cout << "Aceptada"; else cout << "Rechazada";
+        //Verificación de Palabra
+        if (checkWord(p, Word, wordString.length())) cout << "\nAceptada" << endl; else cout << "\nRechazada" << endl;
+        cout << "\nFinalizar? [s/n] ";
+        cin >> letter;
+        if(letter == 's') bucle = false;
+        cout << endl;
+    }
 
 }
+
+/*****************
+* MÉTODOS VARIOS *
+******************/
 
 /* string inputWord()
 * 

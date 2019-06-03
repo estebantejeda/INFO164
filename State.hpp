@@ -89,7 +89,6 @@ void changeFinalState(state *S, string name){
     S->fin = true;
 }
 
-
 /* bool searchState(state *S, string name)
 *
 * Recibe: El puntero del estado (*S) y el nombre del estado al cuál se quiera
@@ -141,7 +140,7 @@ bool searchSymbol(state *S, string name, char symbol){
 *
 * Recibe: El puntero del estado (*S) y el símbolo que se quiere buscar.
 *
-* Entrega: Retorna la posición (i) del símbolo dentro del venctor symbol. En
+* Entrega: Retorna la posición (i) del símbolo dentro del vector p->symbol. En
 * caso de que no lo encuentre, retorna un -1.
 *
 * Explicación: Primero verifica si el vector symbol está vacío y retorna un -1.
@@ -198,11 +197,11 @@ bool checkWord(state *S, char *A, int largo){
             p = q;
             q = S;
         }
-        else return false;
+        else return false; // Si el símbolo no es una función de transición del estado
         i++;
     }
-    if(p->fin) return true;
-    else return false;
+    if(p->fin) return true; // Si p llegó a un estado final
+    else return false; // Si p no llegó a un estado final
 }
 
 /****************************************************************************
@@ -219,7 +218,8 @@ void print(state *S){ //Imprime los estados
 
 void printAllInformation(state *S){ //Imprime los estados junto a su función de transición
     while(S != nullptr){
-        cout << S->name << endl;
+        cout << S->name;
+        if (S->fin) cout << "F" << endl; else cout << endl; 
         for(int i = 0; i < S->nameD.size(); i++){
             cout << S->symbol[i];
             cout << "->";

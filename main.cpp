@@ -10,7 +10,7 @@ void stringToArray(char *A, string word);
 
 int main(){
 
-    /*
+    /* VARIABLES INICIALES
     * Se crean las variables previas para la creación de los estados. 
     * La descripción de cada variables será anexada a la derecha ellos.
     */
@@ -28,6 +28,7 @@ int main(){
     */
 
     cout << "Ingrese nombre Estado Inicial Q0" << endl;
+    cout << "> ";
     cin >> nameI;
     createState(&p, nameI);
 
@@ -43,18 +44,22 @@ int main(){
     */
 
     while(bucle){
-        cout << "\nIngrese nombre del Estado de Inicio Qn" << endl;
+        cout << "Ingrese nombre del Estado de Inicio Qn" << endl;
+        cout << "> ";
         cin >> nameI;
         if(searchState(p, nameI)) createState(&p, nameI);
-        cout << "\nIngrese nombre del Estado de Destino Qm" << endl;
+        cout << "Ingrese nombre del Estado de Destino Qm" << endl;
+        cout << "> ";
         cin >> nameD;
         if(searchState(p, nameD)) createState(&p, nameD);
-        cout << "\nIngrese el símbolo para la función de Transición" << endl;
+        cout << "Ingrese el símbolo para la función de Transición" << endl;
+        cout << "> ";
         cin >> symbol;
-        addFunction(&p, nameI, nameD, symbol);
-        cout << "Finalizar? [s/n]" << endl;
+        if(searchSymbol(p, nameI, symbol)) addFunction(&p, nameI, nameD, symbol);
+        cout << "\nFinalizar? [s/n] ";
         cin >> letter;
         if(letter == 's') bucle = false;
+        cout << endl;
     } printAllInformation(p); //Imprime los estados y sus funciones de transición
     bucle = true;
 
@@ -65,15 +70,19 @@ int main(){
     * a "true".
     */
 
+   
     while(bucle){
         cout << "\nIngrese el nombre del estado que quiera hacer final" << endl;
+        cout << "> ";
         cin >> nameI;
         if (searchState(p, nameI)) cout << "No existe el Estado" << endl;
         else changeFinalState(p, nameI);
-        cout << "Finalizar? [s/n]" << endl;
+        cout << "Finalizar? [s/n] ";
         cin >> letter;
         if(letter == 's') bucle = false;
+        cout << endl;
     }
+    
 
     /* INGRESO DE LA PALABRA
     * Se pide al usuario el ingreso de una palabra. Una vez sea almacenado, se creará un arreglo
@@ -87,7 +96,7 @@ int main(){
 
     //Inicio de Autómata (PENDIENTE)
 
-    //...
+    //while()
 
 }
 

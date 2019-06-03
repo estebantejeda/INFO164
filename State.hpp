@@ -89,6 +89,7 @@ void changeFinalState(state *S, string name){
     S->fin = true;
 }
 
+
 /* bool searchState(state *S, string name)
 *
 * Recibe: El puntero del estado (*S) y el nombre del estado al cuál se quiera
@@ -106,6 +107,33 @@ void changeFinalState(state *S, string name){
 bool searchState(state *S, string name){
     while(S != nullptr && S->name != name) S = S->next;
     if(S == nullptr) return true;
+    return false;
+}
+
+/* searchSymbol(state *S, string nameI, char symbol)
+* 
+* Recibe: El puntero del estado (*S), el nombre del estado (name) al cual se
+* le quiere buscar el símbolo (symbol)
+*
+* Entrega: Al ser un método void no retorna nada, pero la función busca si el
+* estado tiene algún símbolo repetido
+*
+* Explicación: Primero, el método busca la ubicación del estado "name". Una vez
+* la obtiene, busca si el vector de símbolos (S->symbol) está vacío. 
+* Si el vector está vacío, entonces retorna un true, en caso contrario creo una
+* variable auxiliar para recorrer todos los elementos del arreglo con el fin
+* de buscar si el símbolo está repetido.
+* Si el símbolo no es encontrado, entonces el contador será mayor que la cantidad
+* de elementos del vector. Si esto ocurre, retorna un true. En caso contrario,
+* retorna un false (El elemento sí se encuentra).
+*/
+
+bool searchSymbol(state *S, string name, char symbol){
+    while(S != nullptr && S->name != name) S = S->next;
+    if (S->symbol.empty()) return true;
+    int i = 0;
+    while(i < S->symbol.size() && S->symbol.at(i) != symbol) i++;
+    if(i >= S->symbol.size()) return true;
     return false;
 }
 

@@ -96,7 +96,8 @@ int main(){
 
     //Inicio de Autómata (PENDIENTE)
 
-    //while()
+    if(checkWord(p, Word, wordString.length())) cout << "Palabra aceptada";
+    else "Palabra no aceptada";
 
 }
 

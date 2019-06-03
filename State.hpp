@@ -137,8 +137,49 @@ bool searchSymbol(state *S, string name, char symbol){
     return false;
 }
 
+/* symbolPosition(state *S, char symbol)
+*
+* Recibe: El puntero del estado (*S) y el símbolo que se quiere buscar.
+*
+* Entrega: Retorna la posición (i) del símbolo dentro del venctor symbol. En
+* caso de que no lo encuentre, retorna un -1.
+*
+* Explicación: Primero verifica si el vector symbol está vacío y retorna un -1.
+* En caso contrario, realiza un contador con la búsqueda de la posición dentro
+* del vector. En caso de que no se encuentre retorna un -1, caso contrario
+* retorna la posición.
+*/
+
+int symbolPosition(state *S, char symbol){
+    if (S->symbol.empty()) return -1;
+    int i = 0;
+    while(i < S->symbol.size() && S->symbol.at(i) != symbol) i++;
+    if(i >= S->symbol.size()) return -1;
+    return i;
+}
+
+/* checkWord(state *S, char *A, int largo)
+* 
+*/
+
+bool checkWord(state *S, char *A, int largo){
+    state *p = S;
+    state *q = S;
+    int i = 0;
+    while(i < largo){
+        if(symbolPosition(p, A[i]) != -1){
+            string destState = p->nameD[symbolPosition(p, A[i])];
+            while(q->name != destState) q = q->next;
+            p = q;
+            q = S;
+        }
+        else return false;
+        i++;
+    }
+}
+
 /****************************************************************************
-* MÉTODOS DE DESARROLLO. SERAN BORRADOS UNA VEZ EL PROGRAMA HAYA FINALIZADO *
+* MÉTODOS DE DESARROLLO. SERÁN BORRADOS UNA VEZ EL PROGRAMA HAYA FINALIZADO *
 *****************************************************************************/
 
 void print(state *S){ //Imprime los estados
